@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  ml-server:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./saved_models:/app/saved_models
+      - ./data:/app/data
+    env_file:
+      - .env
+    environment:
+      - MODELS_DIR=/app/saved_models
+      - CPU_CORES=4
+      - MAX_LOADED_MODELS=3
+    restart: unless-stopped
